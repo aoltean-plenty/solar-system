@@ -40,7 +40,7 @@ jobs:
                 key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
 
             - name: Install Dependencies
-              run: npm Install 
+              run: npm install 
 
             - name: Unit Testing 
               id: nodejs-unit-testing-step 
