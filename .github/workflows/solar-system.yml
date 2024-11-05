@@ -51,7 +51,8 @@ jobs:
               if: always()
               uses: actions/upload-artifact@v4
               with: 
-                name: Mocha-Test-Result 
+                with: 
+                name: Mocha-Test-Result-${{ github.run_id }}
                 path: test-results.xml 
 
     
@@ -81,8 +82,17 @@ jobs:
               run: npm run coverage 
 
             - name: Archive Test Result 
-              uses: actions/upload-artifact@v3
+              if: always()
+              uses: actions/upload-artifact@v4
+              with: 
+                name: Mocha-Test-Result
+                path: test-results.xml
+                if-no-files-found: ignore 
+
+            - name: Archive Coverage Result 
+              uses: actions/upload-artifact@v4
               with: 
                 name: Code-Coverage-Result
                 path: coverage
                 retention-days: 5
+                if-no-files-found: ignore
