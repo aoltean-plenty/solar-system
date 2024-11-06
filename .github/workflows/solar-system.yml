@@ -57,6 +57,7 @@ jobs:
 
     
     code-coverage:
+
         name: Code Coverage
         runs-on: ubuntu-latest
         steps:
@@ -96,3 +97,17 @@ jobs:
                 path: coverage
                 retention-days: 5
                 if-no-files-found: ignore
+
+    docker:
+      name: Containerization 
+      needs: [unit-testing,code-coverage]
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Repo
+          uses: actions/checkout@v4
+
+        - name: Dockerhub Login 
+          uses: docker/login-action@v2.2.0
+          with:
+            username: ${{vars.DOCKERHUB_USERNAME}}
+            password: ${{secrets.DOCKERHUB_PASSWORD}}
